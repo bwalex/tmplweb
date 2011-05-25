@@ -1,0 +1,250 @@
+body {
+    //background: url("../icons/background-stripe.png") repeat scroll 0 0 #E9EBE8;
+    //font-family: Verdana,Helvetica,Arial,sans-serif;
+    font-family: Arial,Helvetica,Clean,sans-serif;
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+div#logo {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    //box-shadow: 0 5px 15px #AAAAAA;
+    background: none repeat scroll 0 0 #000000;
+    margin: 15px 0 0 -20px;
+    padding: 0px 20px;
+    width: 100%;
+    text-align: left;
+
+}
+
+div#logo h1.logo {
+	color: #34BEED;
+	padding: 0px;
+	margin: 10px 0 0 0;
+}
+
+div#content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    //box-shadow: 0 5px 15px #AAAAAA;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 1px;
+    padding: 0px 20px;
+    padding-bottom: 20px;
+    position: relative;
+    text-align: left;
+
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+#footer {
+    background: none repeat scroll 0 0 white;
+    border-top: 1px dotted #999999;
+    margin-left: auto;
+    margin-right: auto;
+
+    min-height: 1px;
+    padding: 10px 20px 20px;
+    position: relative;
+    text-align: right;
+    font-size: 75%;
+}
+
+#navbar {
+    box-shadow: 0 5px 15px #AAAAAA;
+    background: none repeat scroll 0 0 #000000;
+    //border-top-left-radius: 6px;
+    //border-top-right-radius: 6px;
+    //border-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    height: 50px;
+    margin: 0 0 0 -20px;
+    overflow: hidden;
+    padding: 0 20px;
+    width: 100%;
+}
+
+#navbar div {
+    background-color: #000000;
+    //border-right: 1px solid #666666;
+    margin: 0;
+    //padding: 5px 0;
+    text-align: center;
+}
+
+#navbar div a {
+    color: #34BEED;
+    display: block;
+    font-size: 90%;
+    font-weight: bold;
+    height: 26px;
+    padding: 15px 15px 6px;
+    text-decoration: none;
+}
+
+#navbar ul li.selected a, #navbar ul li a:hover {
+    color: white;
+}
+
+#navbar ul {
+    float: left;
+    margin: 0;
+    width: 100%;
+    padding-left: 0px;
+}
+
+#navbar ul li {
+    float: left;
+    list-style: none outside none;
+    margin: 5px 0;
+}
+
+#social-nav {
+	padding: 12px;
+	float: right;
+}
+
+#twitter-profile {
+    background: url("../icons/twitter.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 30px;
+    margin-top: 5px;
+    width: 30px;
+    float: right;
+    font-weight: bold;
+    padding-top: 12px;
+    text-align: right;
+    z-index: 4;
+}
+
+#flickr-profile {
+    background: url("../icons/flickr.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 30px;
+    margin-top: 5px;
+    width: 30px;
+    float: right;
+    font-weight: bold;
+    padding-top: 12px;
+    text-align: right;
+    z-index: 4;
+}
+
+
+div.spacer {
+    margin-top: 20px;
+}
+
+#linkedin-profile {
+    background: url("../icons/linkedin.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 30px;
+    margin-top: 5px;
+    width: 30px;
+    float: right;
+    font-weight: bold;
+    padding-top: 12px;
+    text-align: right;
+    z-index: 4;
+}
+
+#rss-feed {
+    background: url("../icons/rss.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 30px;
+    margin-top: 5px;
+    width: 30px;
+    float: right;
+    font-weight: bold;
+    padding-top: 12px;
+    text-align: right;
+    z-index: 4;
+}
+
+
+div#sidebar {
+	padding-top: 10px;
+	//border-left: 1px solid;
+	//height: 100%;
+}
+
+#sidebar a {
+    border-bottom: 1px dotted #CCCCCC;
+    display: block;
+    padding: 4px 6px;
+    text-decoration: none;
+}
+
+#sidebar h3 {
+    border-bottom: 1px solid #666666;
+    margin-bottom: 5px;
+}
+
+#sidebar a.indented {
+    color: #555555;
+    font-size: 11px;
+    padding-left: 15px;
+}
+
+#sidebar a:hover {
+    color: #CC3300;
+}
+
+
+div#main {
+	//border-right: 1px solid #DDDDDD;
+	padding-right: 30px;
+	padding-top: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0.5em 0 0.5em 0;
+}
+th, td {
+    border: 1pt solid #ADB9CC;
+    padding: 0.25em 0.5em;
+}
+th, td.theader {
+    background-color: #F8F8F8;
+    font-weight: bold;
+    padding: 5pt;
+    vertical-align: middle;
+}
+
+a:link, a:visited {
+    -moz-transition: all 0.3s ease 0s;
+}
+
+a:hover {
+    color: #CC3300;
+}
+
+a {
+    color: #3B73B9;
+    text-decoration: none;
+}
+
+h2 {
+    border-bottom: 1px solid #DDDDDD;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#content .box.code {
+    border-radius: 4px;
+    border: 1px solid #CCCCCC;
+    background: url("http://flowplayer.org/img/box/code_lines.png") repeat-y scroll 0 -3px #F9F9FA;
+    padding: 0px 14px 0px 35px;
+}
+
+pre, code, .code {
+    font-family: 'andale mono','bitstream vera sans mono','lucida console','courier new',monospace;
+    font-size: 12px;
+    line-height: 16px;
+}
