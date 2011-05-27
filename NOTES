@@ -2,3 +2,21 @@ Share API
 SexyBookmarks
 license of summ theme? -> GPL v2
 http://undefined.org/python/#simplejson
+
+
+==== LinkedIn profile plugin ====
+Requirements:
+ - ruby
+ - rubygems
+ - The following gems: oauth, json
+
+Notes:
+To use the LinkedIn profile plugin, you need to get a LinkedIn API key at
+http://developer.linkedin.com/ first. Once you have a consumer key and secret,
+change the entries in the linkedin-config.json file and run linkedin-setup.rb, a
+script that will acquire an oauth token and secret and save it into the config
+file as well. It is *VERY IMPORTANT* that you keep your oauth_token and secret
+*PRIVATE* and never share them with anyone.
+
+
+

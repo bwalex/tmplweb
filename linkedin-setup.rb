@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'oauth'
-require 'yaml'
 require 'json'
 
 # Read current configuration
@@ -50,7 +49,7 @@ config['oauth_token'] = access_token.token
 config['oauth_secret'] = access_token.secret
 
 f = File.open("linkedin-config.json", "w")
-f.write JSON.generate(config)
+f.write JSON.pretty_generate(config)
 f.close
 
 puts "Successfully updated configuration"
