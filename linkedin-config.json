@@ -1,0 +1,10 @@
+{
+  "api_host": "https://api.linkedin.com",
+  "request_token_path": "/uas/oauth/requestToken",
+  "access_token_path": "/uas/oauth/accessToken",
+  "authorize_path": "/uas/oauth/authorize",
+  "consumer_key": "",
+  "consumer_secret": "",
+  "oauth_token": "",
+  "oauth_secret": ""
+}

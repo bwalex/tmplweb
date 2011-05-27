@@ -265,7 +265,8 @@ class JsonTemplateSection
 
 	function Statements($clause='default')
 	{
-		return $this->statements[$clause];
+		return isset($this->statements[$clause])?
+			$this->statements[$clause] : null;
 	}
 
 	function NewClause($clause_name)
