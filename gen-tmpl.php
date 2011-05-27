@@ -60,8 +60,27 @@ $data['sidebar'] = json_decode('
  ]
 ', TRUE);
 
-$data['main']['title']="DragonFly";
-$data['main']['content'] = $content;
+$tags = array();
+
+$test_class = null;
+function register_module($tag_arr, $class) {
+	global $tags;
+
+	foreach($tag_arr as $tag) {
+		$tags[$tag] = $class;
+	}
+}
+
+function handle_tag($tag) {
+	global $tags;
+
+	return isset($tags[$tag])?$tags[$tag]->getHTML($tag):'';
+}
+
+include('linkedin-profile.php');
+
+$data['main']['title']="About";
+$data['main']['content'] = handle_tag('{{linkedin-profile}}');
 
 
 try {

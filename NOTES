@@ -18,5 +18,3 @@ script that will acquire an oauth token and secret and save it into the config
 file as well. It is *VERY IMPORTANT* that you keep your oauth_token and secret
 *PRIVATE* and never share them with anyone.
 
-
-
