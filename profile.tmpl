@@ -1,0 +1,110 @@
+<div class="profile-header vcard contact">
+	<div id="profile-picture" style="display:block" class="image">
+		<img height="80" width="80" alt="Alex Hornung" class="photo" src="{picture-url|html-attr-value}">
+	</div>
+	<h1>{first-name} {last-name}</h1>
+	<p style="display:block" class="title">
+		{headline}
+	</p>
+	<dl class="demographic-info adr" id="headline">
+{.section location}
+		<dt>Location</dt>
+		<dd class="locality">{name}</dd>
+{.end}
+		<dt>Industry</dt>
+		<dd class="industry">{industry}</dd>
+	</dl>
+	<dl id="overview">
+{.section three-current-positions}
+		<dt style="display:block" class="summary-current"> Current</dt>
+		<dd style="display:block" class="summary-current">
+			<ul class="current">
+	{.repeated section position}
+			<li>{title}
+		{.section company}
+			<span class="at">at </span>
+			<span class="org summary">{name}</span>
+		{.end}
+	{.end}
+			</li>
+
+			</ul>
+		</dd>
+{.end}
+{.section educations}
+		<dt style="display:block" class="summary-education"> Education</dt>
+		<dd style="display:block" class="summary-education">
+			<ul>
+	{.repeated section education}
+			<li>{school-name}</li>
+	{.end}
+{.end}
+			</ul>
+		</dd>
+	</dl>
+</div>
+
+<h2>Summary</h2>
+{summary}
+
+<h2>Specialties</h2>
+{specialties}
+
+{.section positions}
+<div id="profile-experience">
+	<h2>Experience</h2>
+
+	{.repeated section position}
+
+	<div style="display:block" class="position  first experience vevent vcard current-position">
+		<a href="#name" class="include"></a>
+		<div class="postitle">
+			<h3 class="position-title anet">
+				<span class="title">{title}</span>
+			</h3>
+		{.section company}
+			<h4><strong>
+				<span class="org summary">{name}</span>
+			</strong></h4>
+		{.end}
+		</div>
+		{.section company}
+		<p class="orgstats organization-details">{industry}</p>
+		{.end}
+		<p class="period">{period}</p>
+		<p class="description">{summary}</p>
+	</div>
+	{.end}
+</div>
+{.end}
+
+{.section languages}
+<div id="profile-languages">
+	<h2> Languages</h2>
+	<ul class="competencies">
+	{.repeated section language}
+		{.section language}
+		<li class="competency language"><h3>{name}</h3></li>
+		{.end}
+	{.end}
+	</ul>
+</div>
+{.end}
+
+
+{.section educations}
+<div id="profile-education">
+	<h2> Education</h2>
+	
+	{.repeated section education}
+
+	<div class="position  first education vevent vcard">
+		<h3 class="summary fn org">{school-name}</h3>
+		<h4>
+			<span class="degree">{degree}</span>, <span class="major"> {field-of-study} </span>
+		</h4>
+		<p class=" desc"></p>
+	</div>
+	{.end}
+</div>
+{.end}
