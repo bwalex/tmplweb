@@ -1,5 +1,3 @@
-#!/usr/bin/env php
-
 <?php
 require('oauth/OAuth.php');
 //require("jsontemplate.php");
@@ -11,15 +9,18 @@ $tags = array(
 class LinkedInProfile {
 	private $conf = array();
 
-	private function fix_up($str)
-	{
-		if (is_string($str)) {
-			$str = htmlentities($str, null, FALSE);
-			$str = str_replace("\n", "<br/>", $str);
-			//$str = str_replace("\n", "<br/>", $str);
-			//$str = str_replace("•", "&bull;", $str);
+	private function htmlify($obj) {
+		foreach ($obj as $key => $val) {
+			if (is_array($val)) {
+				$obj[$key] = $this->htmlify($val);
+			} else {
+				if (is_string($val)) {
+					$val = htmlentities($val, null, FALSE);
+					$obj[$key] = str_replace("\n", "<br/>", $val);
+				}
+			}
 		}
-		return $str;
+		return $obj;
 	}
 
 	private function fix_dates(&$arr) {
@@ -40,53 +41,29 @@ class LinkedInProfile {
 
 		foreach ($arr as $key => $position) {
 			$period = '';
-			if (isset($position['start-date'])) {
-				if (isset($position['start-date']['month'])) {
-					$period = $period.$months[$position['start-date']['month']].' ';
+			if (isset($position['startDate'])) {
+				if (isset($position['startDate']['month'])) {
+					$period = $period.$months[$position['startDate']['month']].' ';
 				}
-				$period = $period.$position['start-date']['year'];
+				$period = $period.$position['startDate']['year'];
 			}
 			$period = $period.' &ndash; ';
-			if ($position['is-current'] == "true") {
+			if ($position['isCurrent'] == "true") {
 				$period = $period.'Present';
-			} else if (isset($position['end-date'])) {
-				if (isset($position['end-date']['month'])) {
-					$period = $period.$months[$position['end-date']['month']].' ';
+			} else if (isset($position['endDate'])) {
+				if (isset($position['endDate']['month'])) {
+					$period = $period.$months[$position['endDate']['month']].' ';
 				}
-				$period = $period.$position['end-date']['year'];
+				$period = $period.$position['endDate']['year'];
 			}
 			
 			$arr[$key]['period'] = $period;
 		}
 	}
 
-	private function objectsIntoArray($arrObjData, $arrSkipIndices = array())
-	{
-		$arrData = array();
-		
-		// if input is object, convert into array
-		if (is_object($arrObjData)) {
-			$arrObjData = get_object_vars($arrObjData);
-		}
-		
-		if (is_array($arrObjData)) {
-			foreach ($arrObjData as $index => $value) {
-			if (is_object($value) || is_array($value)) {
-				$value = $this->objectsIntoArray($value, $arrSkipIndices); // recursive call
-			}
-			if (in_array($index, $arrSkipIndices)) {
-				continue;
-			}
-			$arrData[$index] = $this->fix_up($value);
-			}
-		}
-		return $arrData;
-	}
-
 	function __construct() {
 		$config = file_get_contents('my-linkedin-config.json');
 		$this->conf = json_decode($config, TRUE);
-		print "I was called!\n";
 	}
 
 	// $url = "https://api.linkedin.com/v1/people/~:public:(first-name,last-name,headline,location,industry,summary,specialties,honors,publications,patents,languages,skills,educations,certifications,picture-url,positions)";
@@ -100,16 +77,16 @@ class LinkedInProfile {
 		//print "URL is: ".$acc_req->to_url();
 
 		$data = file_get_contents($req->to_url());
-		$xml = new SimpleXMLElement($data);
-		$data = $this->objectsIntoArray($xml);
+		$data = json_decode($data, TRUE);
+		$data = $this->htmlify($data);
 		return $data;
 	}
 
 	public function getProfile() {
-		$data = $this->APICall("https://api.linkedin.com/v1/people/~:public:(first-name,last-name,headline,location,industry,summary,specialties,honors,publications,patents,languages,skills,educations,certifications,picture-url,positions)");
+		$data = $this->APICall("https://api.linkedin.com/v1/people/~:public:(first-name,last-name,headline,location,industry,summary,specialties,honors,publications,patents,languages,skills,educations,certifications,picture-url,positions)?format=json");
 
-		$this->fix_dates($data['positions']['position']);
-		$this->fix_dates($data['educations']['education']);
+		$this->fix_dates($data['positions']['values']);
+		$this->fix_dates($data['educations']['values']);
 		return $data;
 	}
 

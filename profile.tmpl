@@ -1,8 +1,8 @@
 <div class="profile-header vcard contact">
 	<div id="profile-picture" style="display:block" class="image">
-		<img height="80" width="80" alt="Alex Hornung" class="photo" src="{picture-url|html-attr-value}">
+		<img height="80" width="80" alt="Alex Hornung" class="photo" src="{pictureUrl|html-attr-value}">
 	</div>
-	<h1>{first-name} {last-name}</h1>
+	<h1>{firstName} {lastName}</h1>
 	<p style="display:block" class="title">
 		{headline}
 	</p>
@@ -15,11 +15,11 @@
 		<dd class="industry">{industry}</dd>
 	</dl>
 	<dl id="overview">
-{.section three-current-positions}
+{.section threeCurrentPositions}
 		<dt style="display:block" class="summary-current"> Current</dt>
 		<dd style="display:block" class="summary-current">
 			<ul class="current">
-	{.repeated section position}
+	{.repeated section values}
 			<li>{title}
 		{.section company}
 			<span class="at">at </span>
@@ -35,8 +35,8 @@
 		<dt style="display:block" class="summary-education"> Education</dt>
 		<dd style="display:block" class="summary-education">
 			<ul>
-	{.repeated section education}
-			<li>{school-name}</li>
+	{.repeated section values}
+			<li>{schoolName}</li>
 	{.end}
 {.end}
 			</ul>
@@ -54,7 +54,7 @@
 <div id="profile-experience">
 	<h2>Experience</h2>
 
-	{.repeated section position}
+	{.repeated section values}
 
 	<div style="display:block" class="position  first experience vevent vcard current-position">
 		<a href="#name" class="include"></a>
@@ -82,7 +82,7 @@
 <div id="profile-languages">
 	<h2> Languages</h2>
 	<ul class="competencies">
-	{.repeated section language}
+	{.repeated section values}
 		{.section language}
 		<li class="competency language"><h3>{name}</h3></li>
 		{.end}
@@ -96,12 +96,12 @@
 <div id="profile-education">
 	<h2> Education</h2>
 	
-	{.repeated section education}
+	{.repeated section values}
 
 	<div class="position  first education vevent vcard">
-		<h3 class="summary fn org">{school-name}</h3>
+		<h3 class="summary fn org">{schoolName}</h3>
 		<h4>
-			<span class="degree">{degree}</span>, <span class="major"> {field-of-study} </span>
+			<span class="degree">{degree}</span>, <span class="major"> {fieldOfStudy} </span>
 		</h4>
 		<p class=" desc"></p>
 	</div>
