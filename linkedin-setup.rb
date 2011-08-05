@@ -3,7 +3,7 @@ require 'oauth'
 require 'json'
 
 # Read current configuration
-f = File.open("linkedin-config.json", "r")
+f = File.open("config/linkedin-config.json", "r")
 json = f.read
 f.close
 
@@ -48,7 +48,7 @@ access_token = request_token.get_access_token(:oauth_verifier => verifier)
 config['oauth_token'] = access_token.token
 config['oauth_secret'] = access_token.secret
 
-f = File.open("linkedin-config.json", "w")
+f = File.open("config/linkedin-config.json", "w")
 f.write JSON.pretty_generate(config)
 f.close
 
