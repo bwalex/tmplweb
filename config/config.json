@@ -1,0 +1,17 @@
+{
+ "baseUrl": "file:///home/alex/secure/Projects/web-mockup",
+ "logoText": "Alex Hornung",
+ "title": "Alex Hornung's website",
+ "rss" : {
+   "rssFeedUrl": "http://nothingness.com"
+ },
+ "flickr" : {
+   "profile": "66733349@N00"
+ },
+ "twitter" : {
+   "profile": "bwalex"
+ },
+ "linkedin" : {
+   "profile": "alexhornung"
+ }
+}

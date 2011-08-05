@@ -1,7 +1,24 @@
 Share API
 SexyBookmarks
 license of summ theme? -> GPL v2
-http://undefined.org/python/#simplejson
+Disqus
+
+==== Deploy ====
+https://github.com/judofyr/camping/wiki/Camping-on-Shared-Hosting
+use: http://datamapper.org/why
+use: sinatra
+do: gem install dm-sqlite-adapater dm-mysql-adapter data_mapper dm-timestamps oauth json rack sinatra htmlentities
+
+
+==== (Private) Design Notes ====
+@ backend:
+  - static html generator (using templates and db)
+  - management/editing backend
+
+@ frontend:
+  - management/editing frontend with JS editors, etc
+  - communication with backend via... AJAX+JSON? or normal post, etc?
+
 
 
 ==== LinkedIn profile plugin ====

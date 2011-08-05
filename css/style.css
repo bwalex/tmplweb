@@ -251,6 +251,16 @@ pre, code, .code {
 
 
 
+
+
+
+
+
+
+
+
+/* LinkedIn Profile CSS */
+
 .profile-header {
     background-color: #DDF0F8;
     margin: 0 0 15px;
@@ -403,4 +413,53 @@ ul.competencies h3 {
 }
 ul.competencies .proficiency {
     color: #666666;
+}
+
+
+/* End LinkedIn Profile CSS */
+
+
+
+
+
+
+p.post-info {
+    font-size: 90%;
+    margin: 0 0 0 5px;
+    overflow: hidden;
+    padding: 8px 5px;
+}
+
+
+p.post-info {
+  padding-left: 0px;
+  margin-left: 0px;
+  
+}
+
+div.post-body {
+    display: block;
+    padding: 10px 10px 10px 5px;
+}
+
+
+
+#main h2 {
+    margin-bottom: 0px;
+}
+
+
+span.post-date {
+    background: none repeat scroll 0 0 #00CCFF;
+    color: white;
+    float: left;
+    padding: 3px 7px;
+}
+
+span.post-categories {
+    background: none repeat scroll 0 0 #99CC00;
+    color: white;
+    float: left;
+    margin-left: 2px;
+    padding: 3px 7px 3px 3px;
 }

@@ -1,0 +1,16 @@
+<div class="post">
+  <h2 class="post-title">
+    <a href="<%= $config.baseUrl %>/posts/<%= post.get_url %>"><%= post.title %></a>
+  </h2>
+  <p class="post-info">
+    <span class="post-date"><%= post.created_at.strftime('%B %e, %Y') %></span>
+    <% post.categories.each do |category| %>
+      <span class="post-categories">
+        <a rel="category tag" href="<%= $config.baseUrl %>/category-<%= category.name %>.html"><%= category.name %></a>
+      </span>
+    <% end %>
+  </p>
+  <div class="post-body">
+    <%= post.body %>
+  </div>
+</div>

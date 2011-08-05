@@ -1,0 +1,120 @@
+<div class="profile-header">
+	<div id="profile-picture" style="display:block" class="image">
+		<img height="80" width="80" alt="Alex Hornung" class="photo" src="<%= url_encode(pictureUrl) %>">
+	</div>
+	<h1><%= firstName %> <%= lastName %></h1>
+	<p style="display:block" class="title">
+		<%= headline %>
+	</p>
+	<dl class="demographic-info" id="headline">
+		<dt>Location</dt>
+		<dd class="locality"><%= location.name %></dd>
+		<% if defined? industry %>
+		<dt>Industry</dt>
+		<dd class="industry"><%= industry %></dd>
+		<% end %>
+	</dl>
+	<dl id="overview">
+<% if defined? positions and positions.values.find_all{ |pos| defined? pos.isCurrent and pos.isCurrent }.count >= 1 %>
+		<dt style="display:block"> Current</dt>
+		<dd style="display:block">
+			<ul class="current">
+	<% positions.values.find_all{ |pos| pos.isCurrent }.each do |position| %>
+			<li><%= position.title %>
+			<span class="at">at </span>
+			<span><%= position.company.name %></span>
+			</li>
+	<% end %>
+
+			</ul>
+		</dd>
+<% end %>
+
+<% if defined? educations and educations.values.count >= 1 %>
+		<dt style="display:block"> Education</dt>
+		<dd style="display:block">
+			<ul>
+	<% educations.values.each do |education| %>
+			<li><%= education.schoolName %></li>
+	<% end %>
+			</ul>
+		</dd>
+<% end %>
+	</dl>
+</div>
+
+
+<% if defined? summary %>
+<h2>Summary</h2>
+	<%= summary %>
+<% end %>
+
+
+<% if defined? specialties %>
+<h2>Specialties</h2>
+	<%= specialties %>
+<% end %>
+
+
+<% if defined? positions and positions.values.count >= 1 %>
+<div id="profile-experience">
+	<h2>Experience</h2>
+
+	<% positions.values.each do |position| %>
+
+	<div style="display:block" class="position">
+		<div class="postitle">
+			<h3>
+				<span><%= position.title %></span>
+			</h3>
+			<h4><strong>
+				<span><%= position.company.name %></span>
+			</strong></h4>
+		</div>
+
+		<% if position.company.industry %>
+		<p><%= position.company.industry %></p>
+		<% end %>
+		<p class="period">
+		<%=
+			start_date = Time.mktime(position.startDate.year, position.startDate.month).strftime('%B %Y');
+			end_date = 'present';
+			if defined? position.endDate
+				end_date = Time.mktime(position.endDate.year, position.endDate.month).strftime('%B %Y');
+			end
+			start_date + ' - ' + end_date;
+		%>
+		</p>
+		<p class="desc"><%= position.summary %></p>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<% if defined? languages and languages.values.count >= 1 %>
+<div id="profile-languages">
+	<h2> Languages</h2>
+	<ul class="competencies">
+	<% languages.values.each do |language| %>
+		<li><h3><%= language.language.name %></h3></li>
+	<% end %>
+	</ul>
+</div>
+<% end %>
+
+<% if defined? educations and educations.values.count >= 1 %>
+<div id="profile-education">
+	<h2> Education</h2>
+	
+	<% educations.values.each do |education| %>
+
+	<div class="position">
+		<h3><%= education.schoolName %></h3>
+		<h4>
+			<span><%= education.degree %></span>, <span><%= education.fieldOfStudy %></span>
+		</h4>
+		<p class="desc"></p>
+	</div>
+	<% end %>
+</div>
+<% end %>

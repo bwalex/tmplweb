@@ -1,0 +1,97 @@
+<!--
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+-->
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<link type="text/css" href="<%= $config.baseUrl %>/css/fluid_grid.css" rel="stylesheet"/>
+	<link type="text/css" href="<%= $config.baseUrl %>/css/style.css" rel="stylesheet"/>
+	<link type="text/css" href="<%= $config.baseUrl %>/css/print.css" rel="stylesheet" media="print"/>
+	<title><%= $config.logoText %>: <%= page.globalTitle %></title>
+</head>
+
+<body>
+	<div class="container_16 clearfix">
+		<div  id="logo" class="grid_16 clearfix">
+		<h1 class="logo"><%= $config.logoText %></h1>
+		</div>
+	</div>
+	<div id="header" class="container_16">
+		<div id="navbar" class="container_16 clearfix">
+			<div class="grid_12">
+				<ul id="navigation-menu" class="menu">
+				<% if defined? menuItems %>
+					<% menuItems.each do |item| %>
+						<li class="<%= item.classes %>">
+							<a href="<%= item.url %>"><%= item.text %></a>
+						</li>
+					<% end %>
+				<% end %>
+				</ul>
+			</div>
+
+			<div class="grid_4" id="social-nav">
+			<% if not $config.rss.rssFeedUrl.empty? %>
+				<div id="rss-feed">
+					<a target="_blank" href="<%= $config.rss.rssFeedUrl %>"></a>
+				</div>
+			<% end %>
+
+			<% if not $config.flickr.profile.empty? %>
+				<div id="flickr-profile">
+					<a target="_blank" href="http://www.flickr.com/photos/<%= $config.flickr.profile %>"></a>
+				</div>
+			<% end %>
+
+			<% if not $config.twitter.profile.empty? %>
+				<div id="twitter-profile">
+					<a target="_blank" href="http://www.twitter.com/<%= $config.twitter.profile %>"></a>
+				</div>
+			<% end %>
+
+			<% if not $config.linkedin.profile.empty? %>
+				<div id="linkedin-profile">
+					<a target="_blank" href="http://www.linkedin.com/in/<%= $config.linkedin.profile %>"></a>
+				</div>
+			<% end %>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="spacer container_16 clearfix"></div>
+
+
+	<div id="content" class="clearfix container_16">
+		<div class="grid_12">
+		<div id="main">
+			<h2><%= page.title %></h2>
+			<%= page.content %>
+		</div>
+		</div>
+		<div class="grid_4 clearfix">
+			<div id="sidebar" class="clearfix">
+			<% if defined? sidebar %>
+				<% sidebar.each do |sidebar| %>
+					<h3><%= sidebar.title %></h3>
+					<% sidebar.elements.each do |element| %>
+						<a href="<%= element.url %>" class="indented"><%= element.text %></a>
+					<% end %>
+				<% end %>
+			<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="spacer container_16 clearfix"></div>
+	<div id="footer" class="container_16 clearfix">
+		<div class="grid_16">
+			Copyright (C) 2011, Alex Hornung
+		</div>
+	</div>
+</body>
+
+</html>
