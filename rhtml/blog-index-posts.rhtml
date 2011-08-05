@@ -11,6 +11,7 @@
     <% end %>
   </p>
   <div class="post-body">
-    <%= post.body %>
+    <%= post.get_short_body %>
+    <a href="<%= $config.baseUrl %>/posts/<%= post.get_url %>">[...]</a>
   </div>
 </div>

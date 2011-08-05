@@ -3,19 +3,20 @@ require 'json'
 require 'erb'
 require 'ostruct'
 require 'htmlentities'
+require 'helpers/page.rb'
 require 'helpers/plugin.rb'
 require 'helpers/db.rb'
+require 'helpers/theme-config.rb'
 
-## Read current configuration
-#f = File.open("config/blog-config.json", "r")
-#config = JSON.parse(f.read)
-#f.close
 
-f = File.open("rhtml/blog-index-posts.rhtml")
-template = f.read
+f = File.open("rhtml/index.rhtml")
+main_tmpl = ERB.new(f.read)
 f.close
 
-rhtml = ERB.new(template)
+f = File.open("rhtml/blog-index-posts.rhtml")
+rhtml = ERB.new(f.read)
+f.close
+
 
 Category.all().each do |category|
   category_html = ""
@@ -24,7 +25,11 @@ Category.all().each do |category|
     category_html += rhtml.result(binding)
   end
 
+  page = Page.new("Pages in category #{category.name}", "Pages in category #{category.name}", category_html)
+  menuItems = MenuItem.all(:order => [ :place.asc ])
+
+  html = main_tmpl.result(binding)
   f = File.open("out/category/"+category.get_path, File::WRONLY|File::CREAT|File::EXCL)
-    f.write(category_html)
+    f.write(html)
   f.close
 end

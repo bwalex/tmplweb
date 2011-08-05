@@ -1,19 +1,20 @@
 require 'rubygems'
-require 'json'
+#require 'json'
 require 'erb'
 require 'ostruct'
 require 'htmlentities'
-require 'plugin.rb'
-require 'db.rb'
+require 'helpers/plugin.rb'
+require 'helpers/db.rb'
+require 'helpers/theme-config.rb'
 
 class BlogIndex < Plugin
   def expand
     ## Read current configuration
-    #f = File.open("blog-config.json", "r")
+    #f = File.open("config/blog-config.json", "r")
     #config = JSON.parse(f.read)
     #f.close
 
-    f = File.open("blog-index-posts.rhtml")
+    f = File.open("rhtml/blog-index-posts.rhtml")
     template = f.read
     f.close
 

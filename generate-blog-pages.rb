@@ -3,6 +3,7 @@ require 'rubygems'
 require 'erb'
 require 'ostruct'
 require 'htmlentities'
+require 'helpers/page.rb'
 require 'helpers/plugin.rb'
 require 'helpers/db.rb'
 require 'helpers/theme-config.rb'
@@ -16,15 +17,7 @@ f = File.open("rhtml/single-post.rhtml")
 rhtml = ERB.new(f.read)
 f.close
 
-class Page
-  attr_accessor :globalTitle, :title, :content
 
-  def initialize(global_title = '', title = '', content = '')
-    @title = title
-    @globalTitle = global_title
-    @content = content
-  end
-end
 
 
 Post.all.each do |post|
