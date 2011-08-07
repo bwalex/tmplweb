@@ -1,7 +1,8 @@
 {
- "baseUrl": "file:///home/alex/secure/Projects/web-mockup",
+ "baseUrl": "http://localhost/~alex/web-mockup",
  "logoText": "Alex Hornung",
  "title": "Alex Hornung's website",
+ "disqusName": "testingcorner",
  "rss" : {
    "rssFeedUrl": ""
  },

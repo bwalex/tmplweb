@@ -23,6 +23,9 @@ f.close
 Post.all.each do |post|
   page = Page.new(post.title, post.title, rhtml.result(binding))
   menuItems = MenuItem.all(:order => [ :place.asc ])
+  page_url = post.get_url
+  page_uuid = post.get_uuid
+  sidebar = post.sidebars
 
   html = main_tmpl.result(binding)
 

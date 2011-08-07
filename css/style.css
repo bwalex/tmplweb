@@ -169,6 +169,7 @@ div.spacer {
 
 div#sidebar {
 	padding-top: 10px;
+	width: 100%;
 	//border-left: 1px solid;
 	//height: 100%;
 }
@@ -250,14 +251,95 @@ pre, code, .code {
 }
 
 
+div.row {
+    clear: left;
+    padding-top: 5px;
+    width: 100%;
+}
+div.row span.label {
+    float: left;
+    text-align: right;
+    width: 40%;
+}
+div.row span.formw {
+    float: right;
+    text-align: left;
+    width: 60%;
+}
+div.row span.labelfull {
+    float: left;
+    text-align: right;
+    width: 20%;
+}
+div.row span.labelfullleft {
+    float: left;
+    text-align: left;
+    width: 100px;
+}
+div.row span.formfull {
+    float: right;
+    text-align: left;
+    width: 800px;
+}
+div.row span.left {
+    float: left;
+    width: 50%;
+}
+div.row span.right {
+    float: right;
+    width: 50%;
+}
+div.row div.leftfixed {
+    float: left;
+    text-align: left;
+    width: 300px;
+}
+div.row div.rightfixed {
+    float: right;
+    text-align: left;
+    width: 300px;
+}
 
+.clearfix:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+}
+.clearfix {
+    display: inline-block;
+}
 
+input {
+    padding: 3px 8px;
+    background-color: white;
+    margin: 2px 0;
+    border: 1px solid #8496BA;
+}
 
+.editsection {
+    float: right;
+    font-weight: normal;
+    margin-left: 5px;
+    border-bottom: none;
+}
 
+a.boring {
+    /*border: medium none;*/
+    color: #000000;
+    outline: medium none;
+    text-decoration: none;
+    border-bottom: medium none;
+}
 
-
-
-
+img.boring {
+    border: medium none;
+    outline: medium none;
+}
 
 /* LinkedIn Profile CSS */
 

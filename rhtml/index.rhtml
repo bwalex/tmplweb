@@ -14,8 +14,8 @@
 </head>
 
 <body>
-	<div class="container_16 clearfix">
-		<div  id="logo" class="grid_16 clearfix">
+	<div class="container_16">
+		<div  id="logo" class="grid_16">
 		<h1 class="logo"><%= $config.logoText %></h1>
 		</div>
 	</div>
@@ -67,17 +67,39 @@
 
 	<div id="content" class="clearfix container_16">
 		<div class="grid_12">
-		<div id="main">
+		  <div id="main">
 			<h2><%= page.title %></h2>
 			<%= page.content %>
-		</div>
+                  </div>
+                <% if not $config.disqusName.empty? and (not defined? page_disableComments or not page_disableComments) and defined? page_url and defined? page_uuid %>
+                  <div id="disqus_thread"></div>
+                  <script type="text/javascript">
+                    var disqus_developer = 1; // developer mode is on
+                    var disqus_shortname = '<%= $config.disqusName %>';
+                    var disqus_identifier = '<%= page_uuid %>';
+                    var disqus_url = '<%= ($config.baseUrl + "/" + page_url) %>';
+                    (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                  </script>
+                  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                  </noscript>
+                  <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+                <% end %>
 		</div>
 		<div class="grid_4 clearfix">
 			<div id="sidebar" class="clearfix">
 			<% if defined? sidebar %>
 				<% sidebar.each do |sidebar| %>
-					<h3><%= sidebar.title %></h3>
-					<% sidebar.elements.each do |element| %>
+                                        <h3><%= sidebar.title %></h3>
+                                        <% if sidebar.content != nil  %>
+                                                <div>
+                                                  <%= ERB.new(sidebar.content, nil, nil, '_x_').result(binding) %>
+                                                </div>
+                                        <% end %>
+					<% sidebar.sidebarelements.each do |element| %>
 						<a href="<%= element.url %>" class="indented"><%= element.text %></a>
 					<% end %>
 				<% end %>

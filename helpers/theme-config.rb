@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'json'
-require 'helpers/recursive-openstruct.rb'
+require 'extensions/all'
+require_relative 'recursive-openstruct.rb'
 
 class ThemeConfig < RecursiveOpenStruct
 end

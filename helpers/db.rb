@@ -2,9 +2,10 @@ require 'rubygems'
 require 'data_mapper'
 require 'dm-timestamps'
 require 'erb'
+require 'digest/sha2'
 include ERB::Util
 
-DataMapper::Logger.new($stdout, :debug)
+#DataMapper::Logger.new($stdout, :debug)
 
 #DataMapper.setup(:default, 'sqlite:test.db')
 DataMapper.setup(:default, 'sqlite::memory:')
@@ -16,8 +17,13 @@ class Post
   property :title,      String,    :length => 128,
                                    :required => true    # A varchar type string, for short strings
   property :body,       Text,      :required => true     # A text block, for longer string data.
+  property :is_post,    Boolean,   :default  => true
+  property :comments_disabled, Boolean, :default => false
   property :created_at, DateTime
   property :updated_at, DateTime
+
+  has n, :sidebarcontexts
+  has n, :sidebars, :through => :sidebarcontexts
 
   has n, :categorizations
   has n, :categories, :through => :categorizations
@@ -35,8 +41,48 @@ class Post
   def get_url
     url = url_encode(get_path)
   end
+
+  def get_uuid
+    bar = Digest::SHA2.new << get_url
+    uuid = bar.to_s
+  end
 end
 
+
+class Sidebarcontext
+  include DataMapper::Resource
+
+  property :id,         Serial
+  property :created_at, DateTime
+
+  belongs_to :sidebar
+  belongs_to :post
+end
+
+
+class Sidebar
+  include DataMapper::Resource
+  property :id,        Serial
+  property :title,     String,     :required => true
+  property :place,     Integer,    :default => 0
+  property :content,   Text
+  
+  has n, :sidebarelements
+
+  has n, :sidebarcontexts
+  has n, :posts, :through => :sidebarcontexts
+end
+
+
+class Sidebarelement
+  include DataMapper::Resource
+  property :id,        Serial
+  property :url,       String,     :required => true
+  property :text,      String,     :required => true
+  property :place,     Integer,    :default => 0
+ 
+  belongs_to :sidebar
+end
 
 class Categorization
   include DataMapper::Resource
@@ -55,8 +101,8 @@ class Category
   property :id,         Serial
   property :name,       String,    :length => 1..32,
                                    :required => true,
-				                           :unique => true,
-				                           :format =>  /[a-zA-Z0-9]+/
+				   :unique => true,
+				   :format =>  /[a-zA-Z0-9 ]+/
 
   has n, :categorizations
   has n, :posts,      :through => :categorizations
@@ -121,11 +167,12 @@ DataMapper.auto_migrate!
 
 
 
-MenuItem.create(:url => '#', :text => 'Blog', :place => 2)
-MenuItem.create(:url => '#', :text => 'DragonFly', :place => 3)
-MenuItem.create(:url => '#', :text => 'Home', :place => 1)
+MenuItem.create(:url => '#', :text => 'Blog', :place => 1)
+MenuItem.create(:url => '#', :text => 'About', :place => 3)
+MenuItem.create(:url => '#', :text => 'DragonFly', :place => 4)
+MenuItem.create(:url => '#', :text => 'Projects', :place => 5)
 
-Post.create(:title => 'The Glue Factory 1', :body => '
+post = Post.create(:title => 'The Glue Factory 1', :body => '
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec dui volutpat tortor viverra pulvinar non in sem. Pellentesque vitae sem erat. Integer urna tellus, ornare ac sagittis in, pretium non orci. Donec venenatis varius feugiat. Fusce gravida volutpat pharetra. Suspendisse potenti. Nullam eget tortor est. Fusce adipiscing, risus vitae pellentesque convallis, metus neque condimentum leo, vel pretium sem sem sed magna. Pellentesque blandit nisi interdum orci tristique tincidunt. Pellentesque at ultricies elit. Aliquam sed mauris sed neque luctus varius nec eu est. Vestibulum erat metus, blandit sit amet hendrerit ac, volutpat vitae tortor. Cras vehicula, ligula nec tempor venenatis, odio sem pretium diam, et interdum diam justo sit amet diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer sed lectus vitae justo interdum blandit. Duis non lectus felis. Aenean facilisis tincidunt erat ac placerat. Vestibulum ac urna magna.
 </p>
 <p>Nullam ornare, velit vel posuere sagittis, ante nibh commodo nulla, quis porttitor est mauris dictum diam. Suspendisse in sagittis odio. Donec venenatis nisl a mauris rhoncus hendrerit. In semper volutpat eros, nec consectetur justo aliquet venenatis. Mauris vel orci nunc. Sed dignissim dictum enim, quis volutpat metus varius ut. Cras eget velit sem, in aliquet magna. Aenean placerat interdum aliquet. Quisque vitae mi sem, et viverra dui. Cras vel erat sem, sed tempor libero. Vestibulum laoreet, sem et feugiat ultricies, enim tellus faucibus diam, sit amet aliquet augue lorem mattis sem. Aenean aliquam, elit a facilisis sollicitudin, leo leo egestas nulla, sed varius diam velit a orci. Aliquam sollicitudin mi ac quam pharetra dapibus ac quis dui.
@@ -136,6 +183,18 @@ Post.create(:title => 'The Glue Factory 1', :body => '
 </p>
 <p>Cras sollicitudin, risus vitae suscipit porta, lectus orci pharetra velit, in facilisis nulla massa at velit. Integer posuere massa vitae urna convallis interdum. Proin ullamcorper sapien sit amet odio rhoncus placerat. Fusce iaculis sapien sed ipsum fermentum molestie. Sed eleifend cursus porttitor. Sed ut ullamcorper sapien. Quisque mollis, lectus sit amet hendrerit congue, eros ligula vehicula metus, eget molestie magna velit id diam. Praesent pellentesque, risus a sodales lobortis, sapien ante accumsan quam, sit amet hendrerit ipsum leo id risus. Cras lectus risus, molestie a semper vel, commodo a nisi. Nunc et sapien felis, eu tincidunt felis. Nulla vestibulum odio ut mi bibendum non euismod risus adipiscing. Proin sit amet lectus ligula. Praesent quam lacus, laoreet sed placerat viverra, adipiscing sed justo. Ut nisi dui, malesuada id sodales ac, pellentesque at tortor. Proin pellentesque faucibus nunc, at congue mauris scelerisque eu. Vestibulum iaculis metus sed est lobortis auctor. Phasellus in malesuada nulla. Aliquam erat volutpat. Duis molestie mauris quis elit pellentesque scelerisque. Proin consectetur molestie magna, eu sodales neque feugiat a. 
 </p>')
+
+post.categories.new(:name => 'Hardware')
+post.categories.new(:name => 'Software')
+post.sidebars.new(:title => "Dynamic Content", :content => "<img src=\"http://www.dragonflybsd.org/images/small_logo.png\"/>")
+sb = post.sidebars.new(:title => "Projects") #:content => "FOOL: <%= page_uuid %>")
+sb.sidebarelements.new(:url => '#', :text => 'tcplay', :place => 5)
+sb.sidebarelements.new(:url => '#', :text => 'mrf24j40-driver', :place => 5)
+sb.sidebarelements.new(:url => '#', :text => 'sniff802154', :place => 5)
+sb.sidebarelements.new(:url => '#', :text => 'sniffSPI', :place => 5)
+sb.save
+post.save
+
 Post.create(:title => 'The Glue Factory 2', :body => 'Body 2 test')
 Post.create(:title => 'The Glue Factory 3', :body => 'Body 3 test')
 Post.create(:title => 'The Glue Factory 4', :body => 'Body 4 test')
