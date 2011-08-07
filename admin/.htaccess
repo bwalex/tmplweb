@@ -1,0 +1,10 @@
+RewriteEngine on
+ 
+Options +FollowSymLinks +ExecCGI
+AddHandler fastcgi-script .fcgi
+AddHandler cgi-script .cgi 
+
+#SetEnv GEM_HOME /home/alexhorn/ruby/gems 
+#RewriteRule ^(.*)$ dispatch.cgi [QSA,L]
+RewriteBase /~alex/web-mockup/admin
+RewriteRule ^(.*)$ dispatch.cgi [QSA,L]

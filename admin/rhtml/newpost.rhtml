@@ -1,0 +1,173 @@
+<!--
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+-->
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link type="text/css" href="<%= $config.baseUrl %>/css/fluid_grid.css" rel="stylesheet"/>
+  <link type="text/css" href="<%= $config.baseUrl %>/css/style.css" rel="stylesheet"/>
+  <link type="text/css" href="<%= $config.baseUrl %>/css/print.css" rel="stylesheet" media="print"/>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="<%= $config.baseUrl %>/js/jquery.tokeninput.js"></script>
+  <script type="text/javascript" src="<%= $config.baseUrl %>/js/json2.js"></script>
+  <script type="text/javascript" src="<%= $config.baseUrl %>/js/jquery.tmpl.min.js"></script>
+  <script type="text/javascript" src="<%= $config.baseUrl %>/js/ckeditor/ckeditor.js"></script>
+
+  <link type="text/css" href="<%= $config.baseUrl %>/css/token-input.css" rel="stylesheet"/>
+  <link type="text/css" href="<%= $config.baseUrl %>/css/token-input-facebook.css" rel="stylesheet"/>
+  <title>New Post</title>
+</head>
+
+<body>
+  <div class="container_16 clearfix">
+    <div class="container_16">
+      <div  id="logo" class="grid_16">
+        <h1 class="logo"><%= $config.logoText %></h1>
+      </div>
+    </div>
+    <div id="header" class="container_16">
+      <div id="navbar" class="container_16 clearfix">
+        <div class="grid_16">
+          <ul id="navigation-menu" class="menu">
+            <li>
+              <a href="<%= $config.baseUrl %>/admin/newpost">New Post</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer container_16 clearfix"></div>
+    <div id="content" class="clearfix container_16">
+      <form action="newpost" method="post">
+        <input type="hidden" name="id" value="1234" />
+        <div class="grid_12">
+          <div id="main">
+            <h2>Create/Edit Post</h2>
+            <div id="form-row-div" class="row clearfix">
+              <div class="row">
+                <span class="labelfullleft">
+                  <b>Title</b>
+                </span>
+                <span class="formfull clearfix">
+                  <input type="text" size="50" name="title" />
+                </span>
+              </div>
+              <div class="row clearfix">
+                <span class="labelfullleft">
+                  <b>Categories</b>
+                </span>
+                <span class="formfull clearfix">
+                  <input type="text" id="categories-input-local" name="categories" />
+                </span>
+                <script type="text/javascript">
+                  $(document).ready(function() {
+                    $("#categories-input-local").tokenInput([
+                      {id: 7, name: "Ruby"},
+                      {id: 11, name: "Python"},
+                      {id: 13, name: "JavaScript"},
+                      {id: 17, name: "ActionScript"},
+                      {id: 19, name: "Scheme"},
+                      {id: 23, name: "Lisp"},
+                      {id: 29, name: "C#"},
+                      {id: 31, name: "Fortran"},
+                      {id: 37, name: "Visual Basic"},
+                      {id: 41, name: "C"},
+                      {id: 43, name: "C++"},
+                      {id: 47, name: "Java"}
+                    ], {theme: "facebook"});
+                  });
+                </script>
+              </div>
+              <div class="row clearfix">
+                <textarea class="ckeditor" name="body"></textarea>
+              </div>
+              <div class="row clearfix">
+                <b>Sidebar</b>
+                <script type="text/javascript">
+                  populateSidebarJSONExample = function() {
+                    var exampleJSON =
+                        [
+                        {
+                          "title"   : "Sidebar 1",
+                          "content" : "",
+                          "elements": [
+                          {
+                            "text"  : "Link 0",
+                            "link"  : "#"
+                          },
+                          {
+                            "text"  : "Link 1",
+                            "link"  : "#"
+                          }
+                          ]
+                        },
+                        {
+                          "title"   : "Sidebar 2",
+                          "content" : "",
+                          "elements": [
+                          {
+                            "text"  : "Link 2",
+                            "link"  : "#"
+                          },
+                          {
+                            "text"  : "Link 3",
+                            "link"  : "#"
+                          }
+                          ]
+                        }
+                    ];
+                    $('#sidebar-edit-textarea').val(JSON.stringify(exampleJSON, null, "  "));
+                  };
+                  previewSidebarJSON = function() {
+                    var sidebars = JSON.parse($('#sidebar-edit-textarea').val());
+                    $('#sidebar').empty();
+                    $('#sidebarTemplate').tmpl(sidebars).appendTo('#sidebar');
+                  }
+                </script>
+                <a href="javascript:void(0)" onclick="populateSidebarJSONExample()">Load example JSON</a>
+                <a href="#" onclick="previewSidebarJSON()">Preview sidebar(s)</a>
+                <br/>
+
+
+                <textarea rows="30" cols="80" id="sidebar-edit-textarea" name="sidebars">
+                </textarea>
+              </div>
+              <div class="row">
+                <input type="submit" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid_4 clearfix">
+          <script id="sidebarTemplate" type="text/x-jquery-tmpl"> 
+            <div>
+              <h3>${title}</h3>
+              <div>${content}</div> 
+              {{each elements}}
+                  <a href="${$value.link}" class="indented">${$value.text}</a>
+              {{/each}}
+            </div>
+          </script>
+
+          <div id="sidebar" class="clearfix">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="spacer container_16 clearfix"></div>
+    <div id="footer" class="container_16 clearfix">
+      <div class="grid_16">
+        Copyright (C) 2011, Alex Hornung
+      </div>
+    </div>
+  </div>
+
+            
+</body>
+
+</html>
