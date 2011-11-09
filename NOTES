@@ -7,7 +7,7 @@ Disqus
 https://github.com/judofyr/camping/wiki/Camping-on-Shared-Hosting
 use: http://datamapper.org/why
 use: sinatra
-do: gem install dm-sqlite-adapater dm-mysql-adapter data_mapper dm-timestamps oauth json rack sinatra htmlentities
+do: gem install dm-sqlite-adapter dm-mysql-adapter data_mapper dm-timestamps oauth json rack sinatra htmlentities extensions
 
 
 ==== (Private) Design Notes ====
